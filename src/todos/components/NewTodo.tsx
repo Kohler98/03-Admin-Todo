@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 import { IoTrashOutline } from "react-icons/io5";
+import { addTodo, removeTodo } from "../actions/todo-actions";
 interface Props {
     todos?: Todo[];
   }
@@ -23,7 +24,11 @@ export const NewTodo:React.FC<Props> = ({todos=[]}) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    toggleCreateTodo(todo.description);
+    addTodo(todo.description);
+    setTodo({
+      description: "",
+    })
+    router.refresh();
   };
 
   const toggleCreateTodo = async (description: string) => {
@@ -40,7 +45,7 @@ export const NewTodo:React.FC<Props> = ({todos=[]}) => {
   const handleDelete = () =>{
     const completed = todos.filter(todo=>todo.complete)
     completed.forEach(comp =>(
-        toggleDeleteTodo(comp.id)
+      removeTodo(comp.id)
     ))
 
   }
