@@ -29,9 +29,10 @@ export async function PUT(request: Request,segments:Segments) {
         where:{id:id}
        })
        if(!todo) return NextResponse.json({message:'Todo no encontrado'},{status:400})
-    try {
+       
+       try {
         const body = await postSchema.validate(await request.json())
-        
+
         const updateTodo = await prisma.todo.update({
             where:{id:id},
             data:{...body}
@@ -42,6 +43,7 @@ export async function PUT(request: Request,segments:Segments) {
         return NextResponse.json({message:'Error al actualizar todo'},{status:400})
     }
 }
+
 export async function DELETE(request: Request,segments:Segments) { 
     const {id} = segments.params
     const todo = await prisma.todo.findFirst({
