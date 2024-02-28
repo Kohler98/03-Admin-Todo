@@ -21,10 +21,11 @@ export const NewTodo:React.FC<Props> = ({todos=[]}) => {
       [e.target.name]: e.target.value,
     });
   };
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    addTodo(todo.description);
+    await api.createTodo(todo.description)
+    // addTodo(todo.description);
     setTodo({
       description: "",
     })

@@ -1,6 +1,8 @@
 import prisma from '@/lib/prisma'
+import { getServerSession } from 'next-auth'
 import { NextResponse, NextRequest } from 'next/server'
 import { boolean, object, string } from 'yup'
+import { authOptions } from '../auth/[...nextauth]/route'
 
 export async function GET(request: Request) { 
     const {searchParams} = new URL(request.url)
@@ -25,10 +27,12 @@ const postSchema = object({
 })
 
 export async function POST(request: Request) {
+    const session = await getServerSession(authOptions);
+    if(!session?.user) return NextResponse.json('No autorizado',{status:401})
     try {
         
-        const body = await postSchema.validate(await request.json())
-        const todo = await prisma.todo.create({data:body})
+        const {complete,description} = await postSchema.validate(await request.json())
+        const todo = await prisma.todo.create({data:{complete,description,userId:session.user.id}})
         
         return NextResponse.json(todo);
     } catch (error) {
