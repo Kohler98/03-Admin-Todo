@@ -11,7 +11,9 @@ docker compose up -d
 4. Ejecutar el comando ``` npm install ```
 5. Ejecutar el comando ``` npm run dev ```
 6. Ejecutar el Seed para [crear la base de datos](http://localhost:3000/api/seed)
-
+## NOTA Usuario por defecto
+__usuario:__ test1@user.com
+__password:__ 123456
 # Prisma commands
 ```
 npx prisma init

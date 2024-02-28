@@ -1,3 +1,5 @@
+export { LogoutButton } from "./Sidebard/LogoutButton";
+
 export { TabBar } from "./Tabs/TabBar";
 
 export { WidgetItem } from "./WidgetItem";
